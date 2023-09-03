@@ -17,6 +17,17 @@ LOCAL_BIN_DIR="$HOME"/.local/bin
 # Create local bin dir if it does not exist
 [ -d "$LOCAL_BIN_DIR" ] || mkdir -p "$LOCAL_BIN_DIR"
 
+if echo "$PATH" | grep -q "$LOCAL_BIN_DIR"; then 
+    echo "$LOCAL_BIN_DIR" is already in PATH
+else
+    LINES="\n"
+    LINES="${LINES}# Local bin dir\n"
+    LINES="${LINES}export PATH="$LOCAL_BIN_DIR:\$PATH""
+    echo "$LINES" >> "$ZSH_RC_FILE_PATH"
+    unset LINES
+    echo Added "$LOCAL_BIN_DIR" to PATH
+fi
+
 # Build the Rust bin file using cargo
 echo Compiling from source
 cargo build
@@ -63,7 +74,8 @@ else
     LINES="${LINES}# Zsh functions dir\n"
     LINES="${LINES}export FPATH="$ZSH_FUNCTIONS_DIR:\$FPATH""
     echo "$LINES" >> "$ZSH_RC_FILE_PATH"
-    echo Added "$ZSH_RC_FILE_PATH" to FPATH
+    unset LINES
+    echo Added "$ZSH_FUNCTIONS_DIR" to FPATH
 fi
 
 # Copy cd2 bash file (containing the cd2 function)
