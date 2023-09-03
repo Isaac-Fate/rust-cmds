@@ -17,6 +17,7 @@ LOCAL_BIN_DIR="$HOME"/.local/bin
 # Create local bin dir if it does not exist
 [ -d "$LOCAL_BIN_DIR" ] || mkdir -p "$LOCAL_BIN_DIR"
 
+ZSH_RC_FILE_PATH=$HOME/.zshrc
 if echo "$PATH" | grep -q "$LOCAL_BIN_DIR"; then 
     echo "$LOCAL_BIN_DIR" is already in PATH
 else
@@ -66,7 +67,6 @@ fi
 
 # Add this zsh functions dir to FPATH
 # by editing .zshrc
-ZSH_RC_FILE_PATH=$HOME/.zshrc
 if echo "$FPATH" | grep -q "$ZSH_FUNCTIONS_DIR"; then 
     echo "$ZSH_RC_FILE_PATH" is already in FPATH
 else
