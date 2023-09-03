@@ -1,0 +1,19 @@
+function cd2() {
+    # Navigate to home dir
+    # if no args are supplied
+    if [ $# -eq 0 ]; then
+        cd "$HOME" || exit
+
+    else
+        # Execute Rust bin file
+        _cd2 "$@"
+
+        # If the exit code is 42,
+        # then it means that bin file has guessed a dir
+        if [ $? -eq 42 ]; then
+            # Read the output dir from a file, and then
+            # navigate there
+            cd "$(cat "$HOME/.cd2/output.txt")" || exit
+        fi
+    fi
+}
